@@ -2,7 +2,6 @@ import 'package:carros/pages/carro/carro_bloc.dart';
 import 'package:carros/pages/carro/carro_page.dart';
 import 'package:carros/pages/carro/carro_tipo.dart';
 import 'package:carros/util/nav.dart';
-import 'package:carros/util/text_error.dart';
 import 'package:flutter/material.dart';
 
 import 'carro.dart';
@@ -96,8 +95,8 @@ class _CarrosListViewState extends State<CarrosListView>
                     "descrição...",
                     style: TextStyle(fontSize: 16),
                   ),
-                  ButtonTheme.bar(
-                    // make buttons use the appropriate styles for cards
+                  ButtonBarTheme(
+                    data: ButtonBarThemeData(),
                     child: ButtonBar(
                       children: <Widget>[
                         FlatButton(

@@ -1,4 +1,4 @@
-import 'file:///D:/Projetos/Curso%20Flutter/Carro/carros/lib/pages/login/login_page.dart';
+import 'package:carros/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
