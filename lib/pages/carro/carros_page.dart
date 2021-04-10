@@ -1,6 +1,7 @@
 import 'package:carros/pages/carro/carro_bloc.dart';
 import 'package:carros/pages/carro/carro_tipo.dart';
 import 'package:carros/pages/carro/carros_list_view.dart';
+import 'package:carros/util/text_error.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -39,14 +40,14 @@ class _CarrosPageState extends State<CarrosPage>
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
-            // child: TextError("Não foi possível buscar os carros"),
-            child: Text(
-              "Não foi possível buscar os carros",
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 22,
-              ),
-            ),
+            child: TextError("Não foi possível buscar os carros"),
+            // child: Text(
+            //   "Não foi possível buscar os carros",
+            //   style: TextStyle(
+            //     color: Colors.red,
+            //     fontSize: 22,
+            //   ),
+            // ),
           );
         }
 
