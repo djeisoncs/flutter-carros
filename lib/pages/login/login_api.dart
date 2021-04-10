@@ -19,21 +19,19 @@ class LoginApi {
         'password': senha,
       });
 
-      // var response = await http.post(url, body: params, headers: headers);
+      var response = await http.post(url, body: params, headers: headers);
 
-      // Map mapResponse = json.decode(response.body);
+      Map mapResponse = json.decode(response.body);
 
-      // if (response.statusCode == 200) {
-      //   final user = new Usuario.fromJson(mapResponse);
-        Usuario user;
+      if (response.statusCode == 200) {
+        final user = new Usuario.fromJson(mapResponse);
 
-        user.nome = "Djeison Cassimiro";
         user.save();
 
         return ApiResponse.ok(user);
-      // }
+      }
 
-      // return ApiResponse.error(mapResponse["error"]);
+      return ApiResponse.error(mapResponse["error"]);
     } catch(error, exception) {
       print("Erro no login $error > $exception");
       ApiResponse.error("Erro não previsto");

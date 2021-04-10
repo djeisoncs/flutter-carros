@@ -1,69 +1,19 @@
-import 'package:carros/pages/carro/carro_bloc.dart';
+import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/carro_page.dart';
-import 'package:carros/pages/carro/carro_tipo.dart';
 import 'package:carros/util/nav.dart';
 import 'package:flutter/material.dart';
 
-import 'carro.dart';
 
 // ignore: must_be_immutable
-class CarrosListView extends StatefulWidget {
-  CarroTipo tipo;
+class CarrosListView extends StatelessWidget {
+  List<Carro> carros;
 
-  CarrosListView(this.tipo);
 
-  @override
-  _CarrosListViewState createState() => _CarrosListViewState();
-}
-
-class _CarrosListViewState extends State<CarrosListView>
-    with AutomaticKeepAliveClientMixin<CarrosListView> {
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
-
-  final _bloc = CarroBloc();
-
-  CarroTipo get tipo => widget.tipo;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _bloc.fetch(tipo);
-  }
+  CarrosListView(this.carros);
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
 
-    return StreamBuilder(
-      stream: _bloc.stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              "Não foi possível buscar os carros",
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 22,
-              ),
-            ),
-          );
-        }
-
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        return _listView(snapshot.data);
-      },
-    );
-  }
-
-  Container _listView(List<Carro> carros) {
     return Container(
       padding: EdgeInsets.all(16),
       child: ListView.builder(
@@ -101,7 +51,7 @@ class _CarrosListViewState extends State<CarrosListView>
                       children: <Widget>[
                         FlatButton(
                           child: const Text('DETALHES'),
-                          onPressed: () => _onClickDetalheCarro(c),
+                          onPressed: () => _onClickDetalheCarro(context, c),
                         ),
                         FlatButton(
                           child: const Text('SHARE'),
@@ -121,14 +71,7 @@ class _CarrosListViewState extends State<CarrosListView>
     );
   }
 
-  _onClickDetalheCarro(Carro c) {
+  _onClickDetalheCarro(context, Carro c) {
     navigate(context, CarroPage(c));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _bloc.dispose();
   }
 }
