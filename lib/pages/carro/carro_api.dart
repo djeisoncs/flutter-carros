@@ -21,25 +21,25 @@ class CarroApi {
 
     String json = response.body;
 
-    return convert.json.decode(json).map<Carro>((map) => Carro.fromJson(map)).toList();
+    return convert.json.decode(json).map<Carro>((map) => Carro.fromMap(map)).toList();
   }
 
   static Future<List<Carro>> getCarrosPorTipo(String tipo) async {
     Usuario usuario = await Usuario.get();
 
-    // Map<String, String> headers = {
-    //   "Content-Type": "application/json",
-    //   "Authorization": "Bearer ${usuario.token}"
-    // };
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${usuario.token}"
+    };
 
-    var url = 'https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo';
-    // var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
+    // var url = 'https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo';
+    var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
 
-    var response = await http.get(url);
-    // var response = await http.get(url, headers: headers);
+    // var response = await http.get(url);
+    var response = await http.get(url, headers: headers);
 
     String json = response.body;
 
-    return convert.json.decode(json).map<Carro>((map) => Carro.fromJson(map)).toList();
+    return convert.json.decode(json).map<Carro>((map) => Carro.fromMap(map)).toList();
   }
 }

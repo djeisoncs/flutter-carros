@@ -1,4 +1,5 @@
 import 'package:carros/util/sql/entity.dart';
+import 'dart:convert' as convert;
 
 class Carro extends Entity {
   int id;
@@ -20,7 +21,7 @@ class Carro extends Entity {
         this.latitude,
         this.longitude});
 
-  Carro.fromJson(Map<String, dynamic> json) {
+  Carro.fromMap(Map<String, dynamic> json) {
     id = json['id'];
     nome = json['nome'];
     tipo = json['tipo'];
@@ -31,17 +32,9 @@ class Carro extends Entity {
     longitude = json['longitude'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nome'] = this.nome;
-    data['tipo'] = this.tipo;
-    data['descricao'] = this.descricao;
-    data['urlFoto'] = this.urlFoto;
-    data['urlVideo'] = this.urlVideo;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    return data;
+  String toJson() {
+    String json = convert.json.encode(toMap());
+    return json;
   }
 
   @override
@@ -56,5 +49,10 @@ class Carro extends Entity {
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Carro{id: $id, nome: $nome, tipo: $tipo, descricao: $descricao, urlFoto: $urlFoto, urlVideo: $urlVideo, latitude: $latitude, longitude: $longitude}';
   }
 }
