@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
 
     Future futureDB = DatabaseHelper.getInstance().db;
-    Future futureDelay = Future.delayed(Duration(seconds: 15));
+    Future futureDelay = Future.delayed(Duration(seconds: 3));
     Future futureUsuario = Usuario.get();
 
     Future.wait([futureDB, futureDelay, futureUsuario]).then((value) {

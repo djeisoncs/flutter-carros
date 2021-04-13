@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/carro_page.dart';
 import 'package:carros/util/nav.dart';
@@ -29,11 +30,11 @@ class CarrosListView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Center(
-                    child: Image.network(
-                      c.urlFoto ??
+                    child: CachedNetworkImage(
+                      imageUrl: c.urlFoto ??
                           "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png",
                       width: 250,
-                    ),
+                    )
                   ),
                   Text(
                     c.nome ?? "",
@@ -49,11 +50,11 @@ class CarrosListView extends StatelessWidget {
                     data: ButtonBarThemeData(),
                     child: ButtonBar(
                       children: <Widget>[
-                        FlatButton(
+                        TextButton(
                           child: const Text('DETALHES'),
                           onPressed: () => _onClickDetalheCarro(context, c),
                         ),
-                        FlatButton(
+                        TextButton(
                           child: const Text('SHARE'),
                           onPressed: () {
                             /* ... */
