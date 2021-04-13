@@ -18,7 +18,7 @@ class CarroApi {
 
     var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
 
-    var response = await http.get(url, headers: headers);
+    var response = await http.get(Uri.parse(url), headers: headers);
 
     String json = response.body;
 
@@ -37,7 +37,7 @@ class CarroApi {
     var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
 
     // var response = await http.get(url);
-    var response = await http.get(url, headers: headers);
+    var response = await http.get(Uri.parse(url), headers: headers);
 
     String json = response.body;
 

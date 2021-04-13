@@ -8,6 +8,7 @@ import 'carro_api.dart';
 
 class CarroBloc extends SimpleBloc<List<Carro>> {
 
+  // ignore: missing_return
   Future<List<Carro>> fetch(CarroTipo tipo) async {
     try {
       bool networkOn = await isNetworkOn();

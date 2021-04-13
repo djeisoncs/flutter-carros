@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:carros/componentes/buttons/app_button.dart';
 import 'package:carros/componentes/text/app_text.dart';
 import 'package:carros/pages/carro/home_page.dart';
 import 'package:carros/pages/login/login_bloc.dart';
-import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/util/alert.dart';
 import 'package:carros/util/api_response.dart';
 import 'package:carros/util/nav.dart';

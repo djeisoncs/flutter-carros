@@ -7,7 +7,7 @@ class LoripsumApi {
 
     print("Get > $url");
 
-    var response = await http.get(url);
+    var response = await http.get(Uri.parse(url));
 
     String text = response.body;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 snack(BuildContext context, String msg) {
-  Scaffold.of(context).showSnackBar(SnackBar(
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(msg),
     action: SnackBarAction(
       label: "Ok",
@@ -21,11 +21,11 @@ dialogConfirm(BuildContext context, String msg, {String titulo = "Carros"}) {
             title: Text(titulo),
             content: Text(msg),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text("Cancelar"),
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text("Ok"),
               ),
@@ -46,7 +46,7 @@ dialogAlerta(BuildContext context, String msg, {String titulo = "Carros"}) {
             title: Text(titulo),
             content: Text(msg),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text("Ok"),
               ),

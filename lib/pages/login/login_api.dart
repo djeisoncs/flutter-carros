@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class LoginApi {
 
+  // ignore: missing_return
   static Future<ApiResponse<Usuario>> login(String login, String senha) async {
     try {
       var url = 'http://carros-springboot.herokuapp.com/api/v2/login';
@@ -19,7 +20,7 @@ class LoginApi {
         'password': senha,
       });
 
-      var response = await http.post(url, body: params, headers: headers);
+      var response = await http.post(Uri.parse(url), body: params, headers: headers);
 
       Map mapResponse = json.decode(response.body);
 
