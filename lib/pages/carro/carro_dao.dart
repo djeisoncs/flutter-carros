@@ -1,19 +1,74 @@
+import 'dart:async';
 
-import 'package:carros/pages/carro/carro.dart';
-import 'package:carros/util/sql/dao.dart';
+import 'package:carros/util/sql/db_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
-class CarroDAO extends DAO<Carro> {
-  @override
-  Carro fromMap(Map<String, dynamic> map) {
-    return Carro.fromMap(map);
+import 'carro.dart';
+
+// Data Access Object
+class CarroDAO {
+
+  Future<Database> get db => DatabaseHelper.getInstance().db;
+
+  Future<int> save(Carro carro) async {
+    var dbClient = await db;
+    var id = await dbClient.insert("carro", carro.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    print('id: $id');
+    return id;
   }
 
-  @override
-  // TODO: implement tableName
-  String get tableName => "tb_carro";
+  Future<List<Carro>> findAll() async {
+    final dbClient = await db;
+
+    final list = await dbClient.rawQuery('select * from carro');
+
+    final carros = list.map<Carro>((json) => Carro.fromMap(json)).toList();
+
+    return carros;
+  }
 
   Future<List<Carro>> findAllByTipo(String tipo) async {
-    List<Carro> carros = await query('select * from $tableName where tipo =? ',[tipo]);
+    final dbClient = await db;
+
+    final list = await dbClient.rawQuery('select * from carro where tipo =? ',[tipo]);
+
+    final carros = list.map<Carro>((json) => Carro.fromMap(json)).toList();
+
     return carros;
+  }
+
+  Future<Carro> findById(int id) async {
+    var dbClient = await db;
+    final list =
+        await dbClient.rawQuery('select * from carro where id = ?', [id]);
+
+    if (list.length > 0) {
+      return new Carro.fromMap(list.first);
+    }
+
+    return null;
+  }
+
+  Future<bool> exists(Carro carro) async {
+    Carro c = await findById(carro.id);
+    var exists = c != null;
+    return exists;
+  }
+
+  Future<int> count() async {
+    final dbClient = await db;
+    final list = await dbClient.rawQuery('select count(*) from carro');
+    return Sqflite.firstIntValue(list);
+  }
+
+  Future<int> delete(int id) async {
+    var dbClient = await db;
+    return await dbClient.rawDelete('delete from carro where id = ?', [id]);
+  }
+
+  Future<int> deleteAll() async {
+    var dbClient = await db;
+    return await dbClient.rawDelete('delete from carro');
   }
 }
