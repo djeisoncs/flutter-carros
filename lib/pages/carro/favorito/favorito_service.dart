@@ -6,7 +6,8 @@ import 'package:carros/pages/carro/favorito/favorito_dao.dart';
 
 class FavoritoService {
 
-  static favoritar(Carro carro) async {
+  static Future<bool> favoritar(Carro carro) async {
+    bool favoritou;
     final dao = FavoritoDAO();
 
     Favorito entity = Favorito.fromCarro(carro);
@@ -15,12 +16,22 @@ class FavoritoService {
 
     if(exists) {
       dao.delete(carro.id);
+      favoritou = false;
     } else {
       dao.save(entity);
+      favoritou = true;
     }
+
+    return favoritou;
   }
 
   static Future<List<Carro>> getCarros() async {
     return await CarroDAO().query('select * from carro c, favorito f where c.id = f.id ');
+  }
+
+  static Future<bool> isFavorito(Carro carro) async {
+    final dao = FavoritoDAO();
+
+    return await dao.exists(carro.id);
   }
 }

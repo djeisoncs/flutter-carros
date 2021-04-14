@@ -19,9 +19,17 @@ class _CarroPageState extends State<CarroPage> {
 
   Carro get carro => widget.carro;
 
+  Color color = Colors.grey;
+
   @override
   void initState() {
     super.initState();
+
+    FavoritoService.isFavorito(carro).then((favorito) {
+      setState(() {
+        color = favorito ? Colors.red : Colors.grey;
+      });
+    });
 
     _bloc.fetch();
   }
@@ -98,7 +106,7 @@ class _CarroPageState extends State<CarroPage> {
             IconButton(
               icon: Icon(
                 Icons.favorite,
-                color: Colors.red,
+                color: color,
                 size: 40,
               ),
               onPressed: _onClickFavorito,
@@ -134,8 +142,12 @@ class _CarroPageState extends State<CarroPage> {
     }
   }
 
-  void _onClickFavorito() {
-    FavoritoService.favoritar(carro);
+  void _onClickFavorito() async {
+    bool favoritou = await FavoritoService.favoritar(carro);
+
+    setState(() {
+      color = favoritou ? Colors.red : Colors.grey;
+    });
   }
 
   void _onClickShare() {}
