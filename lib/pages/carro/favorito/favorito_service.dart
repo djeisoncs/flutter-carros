@@ -18,4 +18,8 @@ class FavoritoService {
       dao.save(entity);
     }
   }
+
+  static getCarros() async {
+    return [];
+  }
 }

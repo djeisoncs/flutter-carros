@@ -1,6 +1,7 @@
 import 'package:carros/componentes/menu/drawer_list_menu_principal.dart';
 import 'package:carros/pages/carro/carro_tipo.dart';
 import 'package:carros/pages/carro/carros_page.dart';
+import 'package:carros/pages/carro/favorito/favoritos_page.dart';
 import 'package:carros/util/prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage>
                 CarrosPage(CarroTipo.CLASSICOS),
                 CarrosPage(CarroTipo.ESPORTIVOS),
                 CarrosPage(CarroTipo.LUXO),
-                CarrosPage(CarroTipo.LUXO),
+                FavoritosPage(),
               ],
             ),
       drawer: DrawerListMenuPrincipal(),
