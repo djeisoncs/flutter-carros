@@ -4,7 +4,7 @@ import 'carro.dart';
 import 'carro_tipo.dart';
 
 class CarroDAO extends BaseDAO<Carro> {
-    @override
+  @override
   String get tableName => "carro";
 
   @override
@@ -12,8 +12,8 @@ class CarroDAO extends BaseDAO<Carro> {
     return Carro.fromMap(map);
   }
 
-
   Future<List<Carro>> findAllByTipo(CarroTipo tipo) async {
-    return await query('select * from $tableName where tipo =? ',[tipo.getName()]);
+    return await query(
+        'select * from $tableName where tipo =? ', [tipo.getName()]);
   }
 }

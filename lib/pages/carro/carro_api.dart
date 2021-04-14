@@ -33,19 +33,13 @@ class CarroApi {
       "Authorization": "Bearer ${usuario.token}"
     };
 
-    // var url = 'https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo';
     var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
 
-    // var response = await http.get(url);
     var response = await http.get(Uri.parse(url), headers: headers);
 
     String json = response.body;
 
     List<Carro> carros = convert.json.decode(json).map<Carro>((map) => Carro.fromMap(map)).toList();
-
-    final dao = CarroDAO();
-
-    carros.forEach(dao.save);
 
     return carros;
   }

@@ -8,6 +8,8 @@ import 'carro_api.dart';
 
 class CarroBloc extends SimpleBloc<List<Carro>> {
 
+  final dao = CarroDAO();
+
   // ignore: missing_return
   Future<List<Carro>> fetch(CarroTipo tipo) async {
     try {
@@ -16,8 +18,12 @@ class CarroBloc extends SimpleBloc<List<Carro>> {
 
       if (networkOn) {
         carros = await CarroApi.getCarrosPorTipo(tipo.getName());
+
+        if (carros.isNotEmpty) {
+          carros.forEach(dao.save);
+        }
       } else {
-       carros = await CarroDAO().findAllByTipo(tipo);
+       carros = await dao.findAllByTipo(tipo);
       }
 
       add(carros);
