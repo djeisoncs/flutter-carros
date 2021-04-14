@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage>
   _initTabs() async {
     int tabIdx = await Prefs.getInt("tabIdx");
 
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
     setState(() {
       _tabController.index = tabIdx;
@@ -47,12 +47,19 @@ class _HomePageState extends State<HomePage>
                 tabs: [
                   Tab(
                     text: "Clássicos",
+                    icon: Icon(Icons.directions_car),
                   ),
                   Tab(
                     text: "Esportivos",
+                    icon: Icon(Icons.directions_car_outlined),
                   ),
                   Tab(
                     text: "Luxo",
+                    icon: Icon(Icons.directions_car_sharp),
+                  ),
+                  Tab(
+                    text: "Favorito",
+                    icon: Icon(Icons.favorite),
                   ),
                 ],
               ),
@@ -66,6 +73,7 @@ class _HomePageState extends State<HomePage>
               children: [
                 CarrosPage(CarroTipo.CLASSICOS),
                 CarrosPage(CarroTipo.ESPORTIVOS),
+                CarrosPage(CarroTipo.LUXO),
                 CarrosPage(CarroTipo.LUXO),
               ],
             ),
