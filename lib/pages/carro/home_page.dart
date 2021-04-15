@@ -1,7 +1,9 @@
 import 'package:carros/componentes/menu/drawer_list_menu_principal.dart';
+import 'package:carros/pages/carro/carro_form_page.dart';
 import 'package:carros/pages/carro/carro_tipo.dart';
 import 'package:carros/pages/carro/carros_page.dart';
 import 'package:carros/pages/carro/favorito/favoritos_page.dart';
+import 'package:carros/util/nav.dart';
 import 'package:carros/util/prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -79,6 +81,14 @@ class _HomePageState extends State<HomePage>
               ],
             ),
       drawer: DrawerListMenuPrincipal(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: onClickAddCarro,
+      ),
     );
+  }
+
+  void onClickAddCarro() {
+    navigate(context, CarroFormPage());
   }
 }

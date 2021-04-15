@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carro/carro.dart';
+import 'package:carros/pages/carro/carro_form_page.dart';
 import 'package:carros/pages/carro/favorito/favorito_service.dart';
 import 'package:carros/pages/carro/loripsum_bloc.dart';
+import 'package:carros/util/nav.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -131,7 +133,7 @@ class _CarroPageState extends State<CarroPage> {
   _onClickPopupMenu(String value) {
     switch (value) {
       case "Editar":
-        print("Editar!!!");
+        navigate(context, CarroFormPage(carro: carro));
         break;
       case "Deletar":
         print("Deletar!!!");
