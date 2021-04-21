@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/pages/carro/carro.dart';
+import 'package:carros/pages/carro/carro_api.dart';
 import 'package:carros/pages/carro/carro_form_page.dart';
 import 'package:carros/pages/carro/favorito/favorito_service.dart';
 import 'package:carros/pages/carro/loripsum_bloc.dart';
+import 'package:carros/util/alert.dart';
+import 'package:carros/util/api_response.dart';
 import 'package:carros/util/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -137,7 +140,7 @@ class _CarroPageState extends State<CarroPage> {
         push(context, CarroFormPage(carro: carro));
         break;
       case "Deletar":
-        print("Deletar!!!");
+        deletar();
         break;
       case "Share":
         print("Share!!!");
@@ -183,6 +186,18 @@ class _CarroPageState extends State<CarroPage> {
             }),
       ],
     );
+  }
+
+  void deletar() async {
+    ApiResponse<bool> response = await CarroApi.delete(carro);
+
+    if (response.ok) {
+      dialogAlerta(context, "Carro deletado com sucesso!", callback: () {
+        pop(context);
+      });
+    } else {
+      dialogAlerta(context, response.msg);
+    }
   }
 
   @override

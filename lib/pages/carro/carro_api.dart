@@ -91,4 +91,31 @@ class CarroApi {
       return ApiResponse.error("Erro não previsto");
     }
   }
+
+  static Future<ApiResponse<bool>> delete(Carro carro) async {
+    try {
+      var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/${carro.id}';
+
+      Usuario usuario = await Usuario.get();
+
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${usuario.token}"
+      };
+
+      var response = await http.delete(Uri.parse(url), headers: headers);
+
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
+      if (response.statusCode == 200) {
+        return ApiResponse.ok(true);
+      }
+
+      return ApiResponse.error("Erro não previsto");
+    } catch(e) {
+      print(e);
+      return ApiResponse.error("Erro não previsto");
+    }
+  }
 }
