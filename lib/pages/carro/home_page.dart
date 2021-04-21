@@ -89,6 +89,6 @@ class _HomePageState extends State<HomePage>
   }
 
   void onClickAddCarro() {
-    navigate(context, CarroFormPage());
+    push(context, CarroFormPage());
   }
 }

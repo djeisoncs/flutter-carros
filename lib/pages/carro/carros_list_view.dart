@@ -32,7 +32,7 @@ class CarrosListView extends StatelessWidget {
                   Center(
                     child: CachedNetworkImage(
                       imageUrl: c.urlFoto ??
-                          "http://www.livroandroid.com.br/livro/carros/esportivos/Ferrari_FF.png",
+                          "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/luxo/Shelby_Supercars_Ultimate.png",
                       width: 250,
                     )
                   ),
@@ -73,6 +73,6 @@ class CarrosListView extends StatelessWidget {
   }
 
   _onClickDetalheCarro(context, Carro c) {
-    navigate(context, CarroPage(c));
+    push(context, CarroPage(c));
   }
 }

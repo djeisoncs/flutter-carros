@@ -41,7 +41,7 @@ class _CarroPageState extends State<CarroPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(widget.carro.nome),
+        title: Text(carro.nome),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.place),
@@ -72,7 +72,8 @@ class _CarroPageState extends State<CarroPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          CachedNetworkImage(imageUrl: widget.carro.urlFoto),
+          CachedNetworkImage(imageUrl: widget.carro.urlFoto ??
+              "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/luxo/Shelby_Supercars_Ultimate.png",),
           _bloco1(),
           Divider(),
           _bloco2(),
@@ -89,14 +90,14 @@ class _CarroPageState extends State<CarroPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.carro.nome,
+              carro.nome,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              widget.carro.tipo,
+              carro.tipo,
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -133,7 +134,7 @@ class _CarroPageState extends State<CarroPage> {
   _onClickPopupMenu(String value) {
     switch (value) {
       case "Editar":
-        navigate(context, CarroFormPage(carro: carro));
+        push(context, CarroFormPage(carro: carro));
         break;
       case "Deletar":
         print("Deletar!!!");
@@ -159,7 +160,7 @@ class _CarroPageState extends State<CarroPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          widget.carro.descricao,
+          carro.descricao,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(

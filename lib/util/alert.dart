@@ -35,7 +35,7 @@ dialogConfirm(BuildContext context, String msg, {String titulo = "Carros"}) {
       });
 }
 
-dialogAlerta(BuildContext context, String msg, {String titulo = "Carros"}) {
+dialogAlerta(BuildContext context, String msg, {String titulo = "Carros", Function callback}) {
   showDialog(
       barrierDismissible: false,
       context: context,
@@ -47,7 +47,12 @@ dialogAlerta(BuildContext context, String msg, {String titulo = "Carros"}) {
             content: Text(msg),
             actions: <Widget>[
               TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (callback != null) {
+                    callback();
+                  }
+                },
                 child: Text("Ok"),
               ),
             ],

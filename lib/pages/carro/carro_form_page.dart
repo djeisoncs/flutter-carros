@@ -2,6 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/componentes/buttons/app_button.dart';
 import 'package:carros/componentes/text/app_text.dart';
 import 'package:carros/pages/carro/carro.dart';
+import 'package:carros/pages/carro/carro_api.dart';
+import 'package:carros/util/alert.dart';
+import 'package:carros/util/api_response.dart';
+import 'package:carros/util/nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -205,7 +209,15 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     print("Salvar o carro $c");
 
-    await Future.delayed(Duration(seconds: 3));
+    ApiResponse<Carro> response = await CarroApi.save(c);
+
+    if (response.ok) {
+      dialogAlerta(context, "Carro salvo com sucesso!", callback: () {
+        pop(context);
+      });
+    } else {
+      dialogAlerta(context, response.msg);
+    }
 
     setState(() {
       _showProgress = false;

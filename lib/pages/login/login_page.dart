@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse response = await _bloc.login(login, senha);
 
     if (response.ok) {
-      navigate(context, HomePage(), replace: true);
+      push(context, HomePage(), replace: true);
 
     } else {
       dialogAlerta(context, response.msg);

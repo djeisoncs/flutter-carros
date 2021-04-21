@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future navigate(BuildContext context, Widget page, {bool replace = false}) {
+Future push(BuildContext context, Widget page, {bool replace = false}) {
   Future navigator;
 
   if (replace) {
@@ -14,4 +14,8 @@ Future navigate(BuildContext context, Widget page, {bool replace = false}) {
   }
 
   return navigator;
+}
+
+pop<T extends Object>(BuildContext context, [T result]) {
+  Navigator.pop(context);
 }

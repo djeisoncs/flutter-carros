@@ -74,6 +74,6 @@ class DrawerListMenuPrincipal extends StatelessWidget {
   _onClickLogout(BuildContext context) {
     Usuario.clear();
     Navigator.pop(context);
-    navigate(context, LoginPage(), replace: true);
+    push(context, LoginPage(), replace: true);
   }
 }

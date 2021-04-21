@@ -26,9 +26,9 @@ class _SplashPageState extends State<SplashPage> {
       Usuario user = value[2];
 
       if (user != null) {
-        navigate(context, HomePage(), replace: true);
+        push(context, HomePage(), replace: true);
       } else {
-        navigate(context, LoginPage());
+        push(context, LoginPage());
       }
     });
   }
