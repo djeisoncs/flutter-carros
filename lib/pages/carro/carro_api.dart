@@ -2,23 +2,15 @@
 import 'dart:convert' as convert;
 
 import 'package:carros/pages/carro/carro.dart';
-import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/util/api_response.dart';
-import 'package:http/http.dart' as http;
+import 'package:carros/util/http_helper.dart' as http;
 
 class CarroApi {
 
   static Future<List<Carro>> getCarros() async {
-    Usuario usuario = await Usuario.get();
-
-    Map<String, String> headers = {
-      "Content-Type": "application/json",
-      "Authorization": usuario.token
-    };
-
     var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
 
-    var response = await http.get(Uri.parse(url), headers: headers);
+    var response = await http.get(url);
 
     String json = response.body;
 
@@ -26,16 +18,9 @@ class CarroApi {
   }
 
   static Future<List<Carro>> getCarrosPorTipo(String tipo) async {
-    Usuario usuario = await Usuario.get();
-
-    Map<String, String> headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer ${usuario.token}"
-    };
-
     var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
 
-    var response = await http.get(Uri.parse(url), headers: headers);
+    var response = await http.get(url);
 
     String json = response.body;
 
@@ -48,13 +33,6 @@ class CarroApi {
     try {
       var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
 
-      Usuario usuario = await Usuario.get();
-
-      Map<String, String> headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${usuario.token}"
-      };
-
       String json = c.toJson();
 
       if (c.id != null) {
@@ -62,8 +40,8 @@ class CarroApi {
       }
 
       var response = await(
-        c.id == null ? http.post(Uri.parse(url), body: json, headers: headers) :
-                       http.put(Uri.parse(url), body: json, headers: headers)
+        c.id == null ? http.post(url, body: json) :
+                       http.put(url, body: json)
       );
 
       print("Response status: ${response.statusCode}");
@@ -96,14 +74,7 @@ class CarroApi {
     try {
       var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/${carro.id}';
 
-      Usuario usuario = await Usuario.get();
-
-      Map<String, String> headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${usuario.token}"
-      };
-
-      var response = await http.delete(Uri.parse(url), headers: headers);
+      var response = await http.delete(url);
 
       print("Response status: ${response.statusCode}");
       print("Response body: ${response.body}");
