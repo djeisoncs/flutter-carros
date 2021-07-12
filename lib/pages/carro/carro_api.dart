@@ -6,7 +6,6 @@ import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/upload_api.dart';
 import 'package:carros/util/api_response.dart';
 import 'package:carros/util/http_helper.dart' as http;
-import 'package:carros/util/upload_service.dart';
 
 class CarroApi {
 
