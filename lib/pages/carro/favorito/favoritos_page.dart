@@ -1,7 +1,8 @@
-import 'package:carros/main.dart';
 import 'package:carros/pages/carro/carros_list_view.dart';
+import 'package:carros/pages/carro/favorito/favorito_bloc.dart';
 import 'package:carros/util/text_error.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 // ignore: must_be_immutable
@@ -20,7 +21,7 @@ class _FavoritosPageState extends State<FavoritosPage>
   void initState() {
     super.initState();
 
-    favoritosBloc.fetch();
+    Provider.of<FavoritoBloc>(context, listen: false).fetch();
   }
 
   @override
@@ -28,7 +29,7 @@ class _FavoritosPageState extends State<FavoritosPage>
     super.build(context);
 
     return StreamBuilder(
-      stream: favoritosBloc.stream,
+      stream: Provider.of<FavoritoBloc>(context, listen: false).stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -50,6 +51,6 @@ class _FavoritosPageState extends State<FavoritosPage>
   }
 
   Future<void> _onRefresh() {
-    return favoritosBloc.fetch();
+    return Provider.of<FavoritoBloc>(context, listen: false).fetch();
   }
 }
