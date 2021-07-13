@@ -1,7 +1,8 @@
+import 'package:carros/main.dart';
 import 'package:carros/pages/carro/carros_list_view.dart';
-import 'package:carros/pages/carro/favorito/favorito_bloc.dart';
 import 'package:carros/util/text_error.dart';
 import 'package:flutter/material.dart';
+
 
 // ignore: must_be_immutable
 class FavoritosPage extends StatefulWidget {
@@ -15,13 +16,11 @@ class _FavoritosPageState extends State<FavoritosPage>
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
-  final _bloc = FavoritoBloc();
-
   @override
   void initState() {
     super.initState();
 
-    _bloc.fetch();
+    favoritosBloc.fetch();
   }
 
   @override
@@ -29,7 +28,7 @@ class _FavoritosPageState extends State<FavoritosPage>
     super.build(context);
 
     return StreamBuilder(
-      stream: _bloc.stream,
+      stream: favoritosBloc.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -51,13 +50,6 @@ class _FavoritosPageState extends State<FavoritosPage>
   }
 
   Future<void> _onRefresh() {
-    return _bloc.fetch();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _bloc.dispose();
+    return favoritosBloc.fetch();
   }
 }
