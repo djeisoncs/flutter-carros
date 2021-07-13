@@ -1,9 +1,9 @@
+import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/carros_list_view.dart';
-import 'package:carros/pages/carro/favorito/favorito_bloc.dart';
+import 'package:carros/pages/carro/favorito/favoritos_model.dart';
 import 'package:carros/util/text_error.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 // ignore: must_be_immutable
 class FavoritosPage extends StatefulWidget {
@@ -21,36 +21,32 @@ class _FavoritosPageState extends State<FavoritosPage>
   void initState() {
     super.initState();
 
-    Provider.of<FavoritoBloc>(context, listen: false).fetch();
+    Provider.of<FavoritosModel>(context, listen: false).getCarros();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return StreamBuilder(
-      stream: Provider.of<FavoritoBloc>(context, listen: false).stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: TextError("Não foi possível buscar os carros"),
-          );
-        }
+    FavoritosModel model = Provider.of<FavoritosModel>(context);
 
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    List<Carro> carros = model.carros;
 
-        return RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: CarrosListView(snapshot.data),);
-      },
+    if (carros.isEmpty) {
+      return Center(
+        child: Text(
+          "Nenhum carro nos favoritos",
+          style: TextStyle(fontSize: 20),
+        ),
+      );
+    }
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: CarrosListView(carros),
     );
   }
 
   Future<void> _onRefresh() {
-    return Provider.of<FavoritoBloc>(context, listen: false).fetch();
+    return Provider.of<FavoritosModel>(context, listen: false).getCarros();
   }
 }
