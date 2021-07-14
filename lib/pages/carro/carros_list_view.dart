@@ -84,35 +84,41 @@ class CarrosListView extends StatelessWidget {
   }
 
   void _onLongClickDetalheCarro(BuildContext context, Carro c) {
-    showModalBottomSheet(context: context, builder: (context) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(c.nome, style: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.bold,
-            ),),
-          ),
-          ListTile(
-            title: Text("Detalhes"),
-            leading: Icon(Icons.directions_car),
-            onTap: () {
-              pop(context);
-              _onClickDetalheCarro(context, c);
-            },
-          ),
-          ListTile(
-            title: Text("Share"),
-            leading: Icon(Icons.share),
-            onTap: () {
-              pop(context);
-              _onClickSharedCarro(context, c);
-            },
-          ),
-        ],
-      );
-    });
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  c.nome,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text("Detalhes"),
+                leading: Icon(Icons.directions_car),
+                onTap: () {
+                  pop(context);
+                  _onClickDetalheCarro(context, c);
+                },
+              ),
+              ListTile(
+                title: Text("Share"),
+                leading: Icon(Icons.share),
+                onTap: () {
+                  pop(context);
+                  _onClickSharedCarro(context, c);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   void _onClickSharedCarro(BuildContext context, Carro c) {

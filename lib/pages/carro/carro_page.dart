@@ -8,6 +8,7 @@ import 'package:carros/util/alert.dart';
 import 'package:carros/util/api_response.dart';
 import 'package:carros/util/nav.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class CarroPage extends StatefulWidget {
@@ -52,7 +53,9 @@ class _CarroPageState extends State<CarroPage> {
           ),
           IconButton(
             icon: Icon(Icons.videocam),
-            onPressed: _onClickVideo,
+            onPressed: () {
+              _onClickVideo(context);
+            },
           ),
           PopupMenuButton<String>(
             onSelected: _onClickPopupMenu,
@@ -75,8 +78,10 @@ class _CarroPageState extends State<CarroPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          CachedNetworkImage(imageUrl: widget.carro.urlFoto ??
-              "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/luxo/Shelby_Supercars_Ultimate.png",),
+          CachedNetworkImage(
+            imageUrl: widget.carro.urlFoto ??
+                "https://s3-sa-east-1.amazonaws.com/videos.livetouchdev.com.br/luxo/Shelby_Supercars_Ultimate.png",
+          ),
           _bloco1(),
           Divider(),
           _bloco2(),
@@ -132,7 +137,13 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickMapa() {}
 
-  void _onClickVideo() {}
+  void _onClickVideo(context) {
+    if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
+      launch(carro.urlVideo);
+    } else {
+      dialogAlerta(context, "Este carro não possui nenhum vídeo");
+    }
+  }
 
   _onClickPopupMenu(String value) {
     switch (value) {
