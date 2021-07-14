@@ -4,6 +4,7 @@ import 'package:carros/pages/carro/carro_api.dart';
 import 'package:carros/pages/carro/carro_form_page.dart';
 import 'package:carros/pages/carro/favorito/favorito_service.dart';
 import 'package:carros/pages/carro/loripsum_bloc.dart';
+import 'package:carros/pages/carro/video_page.dart';
 import 'package:carros/util/alert.dart';
 import 'package:carros/util/api_response.dart';
 import 'package:carros/util/nav.dart';
@@ -139,7 +140,8 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickVideo(context) {
     if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
-      launch(carro.urlVideo);
+      // launch(carro.urlVideo);
+      push(context, VideoPage(carro));
     } else {
       dialogAlerta(context, "Este carro não possui nenhum vídeo");
     }
