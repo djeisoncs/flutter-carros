@@ -6,6 +6,7 @@ import 'package:carros/util/alert.dart';
 import 'package:carros/util/api_response.dart';
 import 'package:carros/util/nav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -82,6 +83,13 @@ class _LoginPageState extends State<LoginPage> {
                 );
               }
             ),
+            Container(
+              height: 46,
+              margin: EdgeInsets.only(top: 20),
+              child: GoogleSignInButton(
+                onPressed: _onClickGoogle,
+              ),
+            ),
           ],
         ),
       ),
@@ -125,5 +133,9 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     super.dispose();
     _bloc.dispose();
+  }
+
+  void _onClickGoogle() {
+    print("Google!!!");
   }
 }
