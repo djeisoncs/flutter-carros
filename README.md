@@ -18,3 +18,8 @@ samples, guidance on mobile development, and a full API reference.
 
 Usuarios  | Senhas
 admin     | 123
+
+
+Comando para obter o SH1 no windows
+
+keytool -list -v -keystore C:\Users\Djeison\.android\debug.keystore -alias androiddebugkey -storepass android -keypass android

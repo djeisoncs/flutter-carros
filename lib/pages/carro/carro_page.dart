@@ -10,6 +10,7 @@ import 'package:carros/util/api_response.dart';
 import 'package:carros/util/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:carros/pages/carro/mapa_page.dart';
 
 // ignore: must_be_immutable
 class CarroPage extends StatefulWidget {
@@ -50,7 +51,9 @@ class _CarroPageState extends State<CarroPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.place),
-            onPressed: _onClickMapa,
+            onPressed: () {
+              _onClickMapa(context);
+            },
           ),
           IconButton(
             icon: Icon(Icons.videocam),
@@ -136,7 +139,13 @@ class _CarroPageState extends State<CarroPage> {
     );
   }
 
-  void _onClickMapa() {}
+  void _onClickMapa(context) {
+    if (carro.latitude != null && carro.longitude != null) {
+      push(context, MapaPage(carro));
+    } else {
+      dialogAlerta(context, "Este carro não possui nenhuma localização cadastrada");
+    }
+  }
 
   void _onClickVideo(context) {
     if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {

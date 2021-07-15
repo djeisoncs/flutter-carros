@@ -1,4 +1,5 @@
 import 'package:carros/util/sql/entity.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Carro extends Entity {
   int id;
@@ -48,5 +49,12 @@ class Carro extends Entity {
   @override
   String toString() {
     return 'Carro{id: $id, nome: $nome, tipo: $tipo, descricao: $descricao, urlFoto: $urlFoto, urlVideo: $urlVideo, latitude: $latitude, longitude: $longitude}';
+  }
+
+  latLng() {
+    return LatLng(
+        latitude == null || latitude.isEmpty ? 0.0 : double.parse(latitude),
+        longitude == null || longitude.isEmpty ? 0.0 : double.parse(longitude)
+    );
   }
 }
