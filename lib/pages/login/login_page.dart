@@ -1,5 +1,6 @@
 import 'package:carros/componentes/buttons/app_button.dart';
 import 'package:carros/componentes/text/app_text.dart';
+import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/carro/home_page.dart';
 import 'package:carros/pages/login/login_bloc.dart';
 import 'package:carros/util/alert.dart';
@@ -104,15 +105,8 @@ class _LoginPageState extends State<LoginPage> {
     String login = _tLogin.text;
     String senha = _tSenha.text;
 
-    ApiResponse response = await _bloc.login(login, senha);
 
-    if (response.ok) {
-      push(context, HomePage(), replace: true);
-
-    } else {
-      dialogAlerta(context, response.msg);
-
-    }
+    _onLogar(await _bloc.login(login, senha));
   }
 
   String _validateLogin(String value) {
@@ -135,7 +129,19 @@ class _LoginPageState extends State<LoginPage> {
     _bloc.dispose();
   }
 
-  void _onClickGoogle() {
-    print("Google!!!");
+  Future<void> _onClickGoogle() async {
+    final service = FirebaseService();
+
+    _onLogar(await service.loginGoogle());
+  }
+
+  _onLogar(ApiResponse response) {
+    if (response.ok) {
+      push(context, HomePage(), replace: true);
+
+    } else {
+      dialogAlerta(context, response.msg);
+
+    }
   }
 }

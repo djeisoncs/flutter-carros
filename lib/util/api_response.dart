@@ -6,7 +6,7 @@ class ApiResponse<T> {
   T result;
   List<T> entidades;
 
-  ApiResponse.ok(this.result) {
+  ApiResponse.ok({this.result, this.msg}) {
     ok = true;
   }
 
@@ -14,7 +14,7 @@ class ApiResponse<T> {
     ok = true;
   }
 
-  ApiResponse.error(this.msg) {
+  ApiResponse.error({this.result, this.msg}) {
     ok = false;
   }
 }

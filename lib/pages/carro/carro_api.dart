@@ -64,19 +64,19 @@ class CarroApi {
 
         print("Novo carro: ${carro.id}");
 
-        return ApiResponse.ok(carro);
+        return ApiResponse.ok(result: carro);
       }
 
       if (response.body == null || response.body.isEmpty) {
-        return ApiResponse.error("Erro não previsto");
+        return ApiResponse.error(msg: "Erro não previsto");
       }
 
       Map mapResponse = convert.json.decode(response.body);
-      return ApiResponse.error(mapResponse["error"]);
+      return ApiResponse.error(msg: mapResponse["error"]);
 
     } catch(e) {
       print(e);
-      return ApiResponse.error("Erro não previsto");
+      return ApiResponse.error(msg: "Erro não previsto");
     }
   }
 
@@ -90,13 +90,13 @@ class CarroApi {
       print("Response body: ${response.body}");
 
       if (response.statusCode == 200) {
-        return ApiResponse.ok(true);
+        return ApiResponse.ok(result: true);
       }
 
-      return ApiResponse.error("Erro não previsto");
+      return ApiResponse.error(msg: "Erro não previsto");
     } catch(e) {
       print(e);
-      return ApiResponse.error("Erro não previsto");
+      return ApiResponse.error(msg: "Erro não previsto");
     }
   }
 }

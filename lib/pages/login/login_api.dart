@@ -29,13 +29,13 @@ class LoginApi {
 
         user.save();
 
-        return ApiResponse.ok(user);
+        return ApiResponse.ok(result: user);
       }
 
-      return ApiResponse.error(mapResponse["error"]);
+      return ApiResponse.error(msg: mapResponse["error"]);
     } catch(error, exception) {
       print("Erro no login $error > $exception");
-      ApiResponse.error("Erro não previsto");
+      ApiResponse.error(msg: "Erro não previsto");
     }
   }
 }
