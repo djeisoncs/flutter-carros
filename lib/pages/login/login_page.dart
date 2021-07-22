@@ -2,6 +2,7 @@ import 'package:carros/componentes/buttons/app_button.dart';
 import 'package:carros/componentes/text/app_text.dart';
 import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/carro/home_page.dart';
+import 'package:carros/pages/login/cadastro_page.dart';
 import 'package:carros/pages/login/login_bloc.dart';
 import 'package:carros/util/alert.dart';
 import 'package:carros/util/api_response.dart';
@@ -28,8 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-
-
   }
 
   @override
@@ -74,21 +73,35 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             StreamBuilder<bool>(
-              stream: _bloc.stream,
-              initialData: false,
-              builder: (context, snapshot) {
-                return AppButton(
-                  "Login",
-                  onPressed: _onClickLogin,
-                  showProgress: snapshot.data,
-                );
-              }
-            ),
+                stream: _bloc.stream,
+                initialData: false,
+                builder: (context, snapshot) {
+                  return AppButton(
+                    "Login",
+                    onPressed: _onClickLogin,
+                    showProgress: snapshot.data,
+                  );
+                }),
             Container(
               height: 46,
               margin: EdgeInsets.only(top: 20),
               child: GoogleSignInButton(
                 onPressed: _onClickGoogle,
+              ),
+            ),
+            Container(
+              height: 46,
+              margin: EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: _onClickCadastrar,
+                child: Text(
+                  "Cadastre-se",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline),
+                ),
               ),
             ),
           ],
@@ -105,20 +118,19 @@ class _LoginPageState extends State<LoginPage> {
     String login = _tLogin.text;
     String senha = _tSenha.text;
 
-
     _onLogar(await _bloc.login(login, senha));
   }
 
   String _validateLogin(String value) {
     if (value.isEmpty) {
-      return "O digite o Login";
+      return "O digite o login";
     }
     return null;
   }
 
   String _validateSenha(String value) {
     if (value.isEmpty) {
-      return "O digite o Senha";
+      return "O digite a senha";
     }
     return null;
   }
@@ -138,10 +150,12 @@ class _LoginPageState extends State<LoginPage> {
   _onLogar(ApiResponse response) {
     if (response.ok) {
       push(context, HomePage(), replace: true);
-
     } else {
       dialogAlerta(context, response.msg);
-
     }
+  }
+
+  void _onClickCadastrar() {
+    push(context, CadastroPage());
   }
 }
