@@ -1,6 +1,8 @@
+import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/carros_list_view.dart';
 import 'package:carros/pages/carro/favorito/favorito_bloc.dart';
 import 'package:carros/util/text_error.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,16 +22,14 @@ class _FavoritosPageState extends State<FavoritosPage>
   @override
   void initState() {
     super.initState();
-
-    Provider.of<FavoritoBloc>(context, listen: false).fetch();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return StreamBuilder(
-      stream: Provider.of<FavoritoBloc>(context, listen: false).stream,
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection("carros").snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -43,14 +43,12 @@ class _FavoritosPageState extends State<FavoritosPage>
           );
         }
 
-        return RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: CarrosListView(snapshot.data),);
+        List<Carro> carros = snapshot.data.docs.map((DocumentSnapshot document) {
+          return Carro.fromMap(document.data());
+        }).toList();
+
+        return CarrosListView(carros);
       },
     );
-  }
-
-  Future<void> _onRefresh() {
-    return Provider.of<FavoritoBloc>(context, listen: false).fetch();
   }
 }

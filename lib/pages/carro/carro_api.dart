@@ -10,7 +10,8 @@ import 'package:carros/util/http_helper.dart' as http;
 class CarroApi {
 
   static Future<List<Carro>> getCarros() async {
-    var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
+    var url = 'https://carros-springboot.herokuapp.com/api/v1/carros';
+    // var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
 
     var response = await http.get(url);
 
@@ -20,7 +21,8 @@ class CarroApi {
   }
 
   static Future<List<Carro>> getCarrosPorTipo(String tipo) async {
-    var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
+    var url = 'https://carros-springboot.herokuapp.com/api/v1/carros/tipo/$tipo';
+    // var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/tipo/$tipo';
 
     var response = await http.get(url);
 
@@ -41,7 +43,8 @@ class CarroApi {
         }
       }
 
-      var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
+      var url = 'https://carros-springboot.herokuapp.com/api/v1/carros';
+      // var url = 'https://carros-springboot.herokuapp.com/api/v2/carros';
 
       String json = c.toJson();
 
@@ -82,7 +85,8 @@ class CarroApi {
 
   static Future<ApiResponse<bool>> delete(Carro carro) async {
     try {
-      var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/${carro.id}';
+      var url = 'https://carros-springboot.herokuapp.com/api/v1/carros/${carro.id}';
+      // var url = 'https://carros-springboot.herokuapp.com/api/v2/carros/${carro.id}';
 
       var response = await http.delete(url);
 
