@@ -1,8 +1,11 @@
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/util/api_response.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+String firebaseUserUid;
 
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +29,8 @@ class FirebaseService {
       UserCredential userCredential =
           await _auth.signInWithCredential(googleCredential);
       User user = userCredential.user;
+      
+      saveUser(user);
 
       // Cria um usuario do app
       final usuario = Usuario(
@@ -50,6 +55,8 @@ class FirebaseService {
       UserCredential userCredential = await _auth
           .signInWithEmailAndPassword(email: email, password: senha);
       User user = userCredential.user;
+
+      saveUser(user);
 
       // Cria um usuario do app
       final usuario = Usuario(
@@ -118,5 +125,18 @@ class FirebaseService {
   Future<void> logout() async {
     FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
+  }
+
+  void saveUser(User user) {
+    if (user != null) {
+      firebaseUserUid = user.uid;
+      DocumentReference refUser = FirebaseFirestore.instance.collection("users").doc(firebaseUserUid);
+      refUser.set({
+        'nome': user.displayName,
+        'email': user.email,
+        'login': user.email,
+        'urlFoto': user.photoURL
+      });
+    }
   }
 }

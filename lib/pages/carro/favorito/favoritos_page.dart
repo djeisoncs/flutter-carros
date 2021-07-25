@@ -1,10 +1,9 @@
 import 'package:carros/pages/carro/carro.dart';
 import 'package:carros/pages/carro/carros_list_view.dart';
-import 'package:carros/pages/carro/favorito/favorito_bloc.dart';
+import 'package:carros/pages/carro/favorito/favorito_service.dart';
 import 'package:carros/util/text_error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 
 // ignore: must_be_immutable
@@ -29,7 +28,7 @@ class _FavoritosPageState extends State<FavoritosPage>
     super.build(context);
 
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("carros").snapshots(),
+      stream: FavoritoService().stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
