@@ -1,5 +1,6 @@
 import 'package:carros/componentes/buttons/app_button.dart';
 import 'package:carros/componentes/text/app_text.dart';
+import 'package:carros/firebase.dart';
 import 'package:carros/firebase/firebase_service.dart';
 import 'package:carros/pages/carro/home_page.dart';
 import 'package:carros/pages/login/cadastro_page.dart';
@@ -29,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
+    // initFcm();
   }
 
   @override
